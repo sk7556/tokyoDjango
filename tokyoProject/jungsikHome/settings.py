@@ -47,11 +47,10 @@ MIDDLEWARE = [
 
 # 추가된 AWS Url이 있다면 여기에 추가 
 CORS_ALLOWED_ORIGINS = [
-    *
-    # "http://localhost:5500",
-    # "http://localhost:8000",
-    # "http://127.0.0.1:5500",
-    # "http://127.0.0.1:8000",
+    "http://localhost:5500",
+    "http://localhost:8000",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:8000",
 ]
 
 ROOT_URLCONF = 'jungsikHome.urls'
