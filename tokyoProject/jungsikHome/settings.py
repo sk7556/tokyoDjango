@@ -15,7 +15,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['52.78.187.152', 'localhost']
 
 
 # Application definition
@@ -51,6 +51,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:5500",
     "http://127.0.0.1:8000",
+    "http://52.78.187.152",
 ]
 
 ROOT_URLCONF = 'jungsikHome.urls'
@@ -119,7 +120,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = '/path/to/static/folder'
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = '/path/to/media/folder'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
