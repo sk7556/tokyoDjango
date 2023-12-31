@@ -3,8 +3,6 @@ name: Django CI/CD
 on:
   push:
     branches: [ "release" ]
-  pull_request:
-    branches: [ "release" ]
 
 jobs:
   deploy:
@@ -32,7 +30,7 @@ jobs:
           script: |
             set -e
             cd /home/ubuntu/tokyo/tokyoDjango/
-            git pull origin main
+            git pull origin release
 
             echo "SECRET_KEY=\"${{ secrets.SECRET_KEY }}\"" > .env
             echo "DEBUG='${{ secrets.DEBUG }}'" >> .env
