@@ -1,9 +1,15 @@
-from django.urls import path
-from .views import ToDoAPIView, toDo_page
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import PostViewSet
+from django.shortcuts import render
 
-app_name = 'toDo'
+router = DefaultRouter()
+router.register(r'posts', PostViewSet, basename='post')
+
+def toDo_page(request):
+    return render(request, 'toDo/toDo.html')
 
 urlpatterns = [
-    path('api/todo/', ToDoAPIView.as_view(), name='api_todo'),
-    path('', toDo_page, name='toDo_page'),
+    path('', toDo_page, name='todo'),
+    path('api/', include(router.urls)),  # /api/posts/ 형태로 변경
 ]
