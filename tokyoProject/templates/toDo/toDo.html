@@ -109,7 +109,7 @@
         });
 
         function fetchPosts() {
-            fetch('http://localhost:8000/toDo/api/posts/')
+            fetch('http://localhost:8000/todo/api/posts/')
                 .then(response => response.json())
                 .then(data => {
                     const postList = document.getElementById('postList');
@@ -140,7 +140,7 @@
             const title = document.getElementById('title').value;
             const content = document.getElementById('content').value;
 
-            fetch('http://localhost:8000/toDo/api/posts/', {
+            fetch('http://localhost:8000/todo/api/posts/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -156,7 +156,7 @@
         }
         
         function deletePost(postId) {
-            fetch(`http://localhost:8000/toDo/api/posts/${postId}/`, {
+            fetch(`http://localhost:8000/todo/api/posts/${postId}/`, {
                 method: 'DELETE',
             })
             .then(response => {
