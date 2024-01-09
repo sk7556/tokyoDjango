@@ -10,6 +10,6 @@ def toDo_page(request):
     return render(request, 'toDo/toDo.html')
 
 urlpatterns = [
-    path('', toDo_page, name='todo'),
+    path('', toDo_page, name='toDo'),
     path('api/', include(router.urls)),  # /api/posts/ 형태로 변경
 ]
