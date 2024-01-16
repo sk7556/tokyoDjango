@@ -24,7 +24,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 추가 pip
+    'bootstrap_datepicker_plus',
     'rest_framework',
+    # 앱 리스트 
     'corsheaders',  
     'toDo',
     'resume',
@@ -69,6 +72,10 @@ TEMPLATES = [
         },
     },
 ]
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 WSGI_APPLICATION = 'jungsikHome.wsgi.application'
 
