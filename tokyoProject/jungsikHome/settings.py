@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-pc!!9yfkmdm#*x9q7t_ctr7)s(4fehbi+!2fugy_aq8c$puq*='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'jungsikHome.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# 일단 sqllie3 를 사용하는걸로 가정하고 진행 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
