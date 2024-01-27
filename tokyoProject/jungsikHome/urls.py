@@ -7,7 +7,7 @@ urlpatterns = [
     path('', index, name='index'), 
     path('login/', login_page, name='login_page'),
     # 외부 앱 연결 
-    path('toDo/', include('toDo.urls')),
+    path('todo/', include('toDo.urls')),
     path('resume/', include('resume.urls')),
     path('diary/', include('diary.urls')),
 ]
