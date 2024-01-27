@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> toDo 가 나와야하는 페이지 </h1>
+    <h1>toDo가 나와야하는 페이지</h1>
+
+    <img src="{% static 'toDo/image.png' %}" alt="이미지">
+    <a href="https://www.google.com">구글로 이동</a>
+
+    <a href="{% url 'login_page' %}"> 로그인 페이지로 이동 </a>
 </body>
 </html>
