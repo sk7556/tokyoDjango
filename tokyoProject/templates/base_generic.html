@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,13 +32,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#"> 정식 이력서 </a>
+                <a class="nav-link" href="{% url 'resume:resume_page' %}">정식 이력서</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> To Do </a>
+                <a class="nav-link" href="{% url 'toDo:toDo' %}"> To Do </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Diary </a>
+                <a class="nav-link" href="{% url 'diary:entry_list' %}"> Diary </a>
             </li>
         </ul>
     </div>

@@ -6,6 +6,8 @@ from django.shortcuts import render
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, basename='post')
 
+app_name = 'toDo'
+
 def toDo_page(request):
     return render(request, 'toDo/toDo.html')
 
