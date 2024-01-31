@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,8 +47,10 @@
 
 <div class="container">
     <h2 class="mb-4">이력서 업데이트</h2>
-    <form id="resumeForm">
+    <form id="resumeForm" method="POST">
         {% csrf_token %}
+        {{ form.as_p }}
+        <input type="file" name="photo">
         <div class="form-group">
             <label for="name">이름 :</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}">
@@ -93,20 +96,29 @@
 
 <script>
     function updateResume() {
-        var form = $('#resumeForm');
-        $.ajax({
-            type: 'POST',
-            url: '{% url "update_resume" resume.id %}',
-            data: form.serialize(),
-            success: function(data) {
-                location.reload(); // 페이지 새로고침
-            },
-            error: function(error) {
-                console.log(error);
+        var form = document.getElementById('resumeForm');
+        var formData = new FormData(form);
+
+        fetch(`http://localhost:8000/resume/api/resumes/1/`, {
+            method: 'PUT',
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            window.location.href = '/resume/';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
     }
 </script>
+
 
 </body>
 </html>
