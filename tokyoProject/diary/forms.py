@@ -1,18 +1,13 @@
+# forms.py
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django import forms
-from bootstrap_datepicker_plus import DatePickerInput
-from .models import Diary
+from .models import DiaryEntry
 
-class diaryCalendar(forms.ModelForm):
-    date_field = forms.DateField(
-        widget=DatePickerInput(
-            options={
-                "format": "YYYY-MM-DD",  # 형식을 원하는대로 설정
-                "showClose": True,
-                "locale": "ko",  # 한글로 설정
-            }
-        )
-    )
-
+class DiaryEntryForm(forms.ModelForm):
     class Meta:
-        model = Diary
-        fields = '__all__'
+        model = DiaryEntry
+        exclude = ['pub_date']
+
+    pub_date = forms.DateTimeField(
+        widget=DateTimePickerInput(),
+    )

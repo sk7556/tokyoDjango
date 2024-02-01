@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <!-- 부트스트랩 CSS 링크 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 추가적인 CSS 스타일링을 원하면 여기에 추가 -->
+    {% block styles %}{% endblock %}
+</head>
+<body>
+
+<!-- 네비게이션 바 -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">메인 페이지</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#"> 정식 이력서 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> To Do </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Diary </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Content 부분 -->
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- 부트스트랩 JS 및 Popper.js, jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- 추가적인 JS 스크립트를 원하면 여기에 추가 -->
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
