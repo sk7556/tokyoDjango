@@ -7,25 +7,33 @@
     <title>{% block title %}Default Title{% endblock %}</title>
     <!-- 부트스트랩 CSS 링크 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- 추가적인 CSS 스타일링을 원하면 여기에 추가 -->
-    <style>
+    {% comment %} <style>
         body {
-            background-color: white; /* 흰색 배경 */
-            color: black; /* 검정색 폰트 */
+            background-color: white; 
         }
     
-        .navbar {
-            background-color: #0B65C2; /* 블루색 배경 */
+        .nav-link {
+            color: white;
+            border: 1px solid; /* 테두리를 설정하고 색상을 #0B65C2로 설정 */
+            border-radius: 5px; /* 테두리를 라운드 처리 */
+            padding: 5px 10px; /* 선택적으로 내부 여백을 설정할 수 있습니다. */
+            margin: 10px;
         }
+        
+        #mainNav {
+            border-bottom: 1px solid #ccc; /* navbar의 하단에 1px 높이의 구분 줄 추가 */
+        }
+        
+        
 
-    </style>
+    </style> {% endcomment %}
     {% block styles %}{% endblock %}
 </head>
 <body>
 
 <!-- 네비게이션 바 -->
-<nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="#">메인 페이지</a>
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <!-- a class="navbar-brand" href="#">메인 페이지</a-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
