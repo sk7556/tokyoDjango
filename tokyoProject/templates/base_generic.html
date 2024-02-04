@@ -33,16 +33,43 @@
 
 <!-- 네비게이션 바 -->
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-    <!-- a class="navbar-brand" href="#">메인 페이지</a-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <nav class="navbar-nav">
-            <a class="nav-link active" href="{% url 'resume:resume_page' %}">정식 이력서</a>
-            <a class="nav-link" href="{% url 'toDo:toDo' %}">To Do</a>
-            <a class="nav-link" href="{% url 'diary:entry_list' %}">Diary</a>
-        </nav>
+    <div class="container">
+        <!-- 네비게이션 로고 -->
+        <a class="navbar-brand" href="#">로고</a>
+
+        <!-- 토글 버튼 -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 네비게이션 메뉴 -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'resume:resume_page' %}">정식 이력서</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'toDo:toDo' %}">To Do</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'diary:entry_list' %}">Diary</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 로그인 폼 -->
+        <div class="ml-auto">
+            <form method="post" action="{% url 'login' %}" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group mr-2">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="아이디" required>
+                </div>
+                <div class="form-group mr-2">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required>
+                </div>
+                <button type="submit" class="btn btn-primary">로그인</button>
+            </form>
+        </div>
     </div>
 </nav>
 
@@ -56,7 +83,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- 추가적인 JS 스크립트를 원하면 여기에 추가 -->
 {% block scripts %}{% endblock %}
 
 </body>
