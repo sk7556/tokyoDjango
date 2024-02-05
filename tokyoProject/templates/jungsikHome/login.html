@@ -1,1 +1,19 @@
-로그인이 나오는 페이지 
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h2 class="text-center">로그인</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">로그인</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

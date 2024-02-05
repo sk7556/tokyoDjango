@@ -3,8 +3,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
-
+from django.http import HttpResponseRedirect
 
 class IndexAPIView(APIView):
     def get(self, request):
@@ -19,32 +18,20 @@ def index(request):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # 로그인 성공 시 리다이렉트 또는 다른 동작 수행
-            return redirect('afterLogin')
+            next_url = request.POST.get('next') or 'resume:resume_page'
+            return HttpResponseRedirect(next_url)
         else:
             messages.error(request, 'Invalid username or password.')
-    return render(request, 'login.html')
+    else:
+        next_url = request.GET.get('next') or 'resume:resume_page'
+    return render(request, 'login.html', {'next': next_url})
 
 def logout_view(request):
     logout(request)
-    # 로그아웃 후 리다이렉트 또는 다른 동작 수행
-    return redirect('afterLogout')
+    return redirect('resume:resume_page') 
 
-
-@login_required
-def afterLogin(request):
-    # 로그인한 사용자만 접근 가능한 뷰
-    pass
-
-def afterLogout(request):
-    pass
-
-@permission_required('some_app.can_view_content')
-def restricted_view(request):
-    # 특정 권한이 있는 사용자만 접근 가능한 뷰
-    pass
