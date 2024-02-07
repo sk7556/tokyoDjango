@@ -7,6 +7,8 @@
     <title>이력서 업데이트</title>
     <!-- 부트스트랩 CSS 링크 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <!-- 추가적인 CSS 스타일링을 원하면 여기에 추가 -->
     <style>
         body {
@@ -57,15 +59,15 @@
         </div>
         <div class="form-group">
             <label for="comment">좌우명 :</label>
-            <textarea class="form-control" id="comment" name="comment">{{ resume.comment }}</textarea>
+            <textarea class="form-control markdown-editor" id="comment" name="comment">{{ resume.comment }}</textarea>
         </div>
         <div class="form-group">
             <label for="career">경력 :</label>
-            <textarea class="form-control" id="career" name="career">{{ resume.career }}</textarea>
+            <textarea class="form-control markdown-editor" id="career" name="career">{{ resume.career }}</textarea>
         </div>
         <div class="form-group">
             <label for="role">지원분야 :</label>
-            <textarea class="form-control" id="role" name="role">{{ resume.role }}</textarea>
+            <textarea class="form-control markdown-editor" id="role" name="role">{{ resume.role }}</textarea>
         </div>
         <div class="form-group">
             <label for="salary">희망연봉 :</label>
@@ -73,15 +75,15 @@
         </div>
         <div class="form-group">
             <label for="intro">자기소개 :</label>
-            <textarea class="form-control" id="intro" name="intro">{{ resume.intro }}</textarea>
+            <textarea class="form-control markdown-editor" id="intro" name="intro">{{ resume.intro }}</textarea>
         </div>
         <div class="form-group">
             <label for="information">개인정보 :</label>
-            <textarea class="form-control" id="information" name="information">{{ resume.information }}</textarea>
+            <textarea class="form-control markdown-editor" id="information" name="information">{{ resume.information }}</textarea>
         </div>
         <div class="form-group">
             <label for="certificate">자격증명 :</label>
-            <textarea class="form-control" id="certificate" name="certificate">{{ resume.certificate }}</textarea>
+            <textarea class="form-control markdown-editor" id="certificate" name="certificate">{{ resume.certificate }}</textarea>
         </div>
         <!-- 정보 업데이트 끝 -->
 
@@ -93,7 +95,12 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<!-- simpleMDE 적용 -->
+<script>
+    document.querySelectorAll('.markdown-editor').forEach(function(element) {
+        new SimpleMDE({ element: element });
+    });
+</script>
 <script>
     function updateResume() {
         var form = document.getElementById('resumeForm');
