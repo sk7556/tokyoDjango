@@ -102,13 +102,40 @@
     });
 </script>
 <script>
+    // SimpleMDE 인스턴스 저장을 위한 객체
+    var simplemdeInstances = {};
+    
+    // SimpleMDE 초기화 및 인스턴스 저장
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.markdown-editor').forEach(function(element) {
+            // element.id를 키로 사용하여 SimpleMDE 인스턴스 저장
+            simplemdeInstances[element.id] = new SimpleMDE({ element: element });
+        });
+    });
+    
     function updateResume() {
-        var form = document.getElementById('resumeForm');
-        var formData = new FormData(form);
-
-        fetch(`http://52.78.187.152/resume/api/resumes/1/`, {
-            method: 'PUT',
-            body: formData,
+        const url = `http://52.78.187.152/resume/api/resumes/1/`; // 서버 주소에 맞게 수정 필요
+    
+        // FormData 객체를 사용하여 데이터 구성
+        var formData = new FormData();
+        formData.append('name', document.getElementById('name').value);
+        formData.append('comment', simplemdeInstances['comment'].value());
+        formData.append('career', simplemdeInstances['career'].value());
+        formData.append('role', simplemdeInstances['role'].value());
+        formData.append('salary', document.getElementById('salary').value);
+        formData.append('intro', simplemdeInstances['intro'].value());
+        formData.append('information', simplemdeInstances['information'].value());
+        formData.append('certificate', simplemdeInstances['certificate'].value());
+        
+        // 파일 입력 처리
+        var photoInput = document.querySelector('input[type="file"][name="photo"]');
+        if (photoInput.files[0]) {
+            formData.append('photo', photoInput.files[0]);
+        }
+    
+        fetch(url, {
+            method: 'PUT', // PATCH를 사용하는 경우에는 'PATCH'로 변경
+            body: formData, // FormData 객체를 직접 전송
         })
         .then(response => {
             if (!response.ok) {
@@ -118,12 +145,16 @@
         })
         .then(data => {
             console.log('Success:', data);
-            window.location.href = '/resume/';
+            window.location.href = '/resume/'; // 성공 시 리다이렉션
         })
         .catch((error) => {
             console.error('Error:', error);
         });
     }
+    </script>
+    
+    
+    
 </script>
 
 
