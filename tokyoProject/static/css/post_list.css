@@ -1,0 +1,22 @@
+<style>
+  .table-container {
+    width: 80%;
+    margin: 0 auto; /* 화면 가운데 정렬 */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블 경계선 겹침 제거 */
+  }
+
+  th, td {
+    border: 1px solid #0B65C2; /* 셀 경계선 색상 */
+    padding: 8px; /* 셀 패딩 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+  }
+
+  th {
+    background-color: #0B65C2; /* 테이블 헤더 배경 색상 */
+    color: white; /* 테이블 헤더 글자 색상 */
+  }
+</style>
