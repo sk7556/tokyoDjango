@@ -1,0 +1,19 @@
+<!-- diary/templates/diary/diary.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>다이어리</h2>
+<form method="post" action="{% url 'diary' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">포스트 추가</button>
+</form>
+<hr>
+<h3>포스트 목록</h3>
+<ul>
+    {% for post in posts %}
+        <li>{{ post.title }} - {{ post.pub_date }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

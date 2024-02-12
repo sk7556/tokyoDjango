@@ -1,11 +1,10 @@
+# File: urls.py
 from django.urls import path
-from .views import DiaryDateSelectionAPIView, DiaryDetailAPIView
+from .views import DiaryEntryListView, DiaryEntryCreateView
 
 app_name = 'diary'
 
 urlpatterns = [
-    path('api/diary/date_selection/', DiaryDateSelectionAPIView.as_view(), name='api_diary_date_selection'),
-    path('api/diary/<int:year>/<int:month>/<int:day>/', DiaryDetailAPIView.as_view(), name='api_diary_detail'),
-    path('date_selection/', DiaryDateSelectionAPIView.as_view(), name='diary_date_selection'),
-    path('<int:year>/<int:month>/<int:day>/', DiaryDetailAPIView.as_view(), name='diary_detail'),
+    path('', DiaryEntryListView.as_view(), name='entry_list'),
+    path('create/', DiaryEntryCreateView.as_view(), name='entry_create'),
 ]

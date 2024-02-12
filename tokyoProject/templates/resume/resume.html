@@ -1,1 +1,65 @@
-resumeresumeresumeresume
+{% extends 'base_generic.html' %}
+
+{% block title %}이력서 업데이트{% endblock %}
+
+{% block styles %}
+    <!-- 추가적인 스타일링을 원하면 여기에 추가 -->
+    <style>
+        body {
+            background-color: white; /* 흰색 배경 */
+            color: black; /* 검정색 폰트 */
+        }
+    
+        .navbar {
+            background-color: #0B65C2; /* 블루색 배경 */
+        }
+    
+        .resume-section {
+            margin-top: 50px;
+            text-align: left; /* 이력서 부분 텍스트 왼쪽 정렬 */
+        }
+    
+        .item {
+            border-bottom: 1px solid #b3ffcc; /* 부드러운 라임색 줄 */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    
+        /* 테마 색상 및 폰트 설정 */
+        h2, p {
+            color: #0B65C2; /* 블루색 헤더 및 본문 색상 */
+        }
+    
+        .container {
+            max-width: 800px; /* 컨테이너 최대 너비 설정 */
+            margin: 0 auto; /* 가운데 정렬 */
+        }
+    
+        /* 상단 메뉴 버튼에 테두리 추가 */
+        .navbar-nav .nav-item a {
+            background-color : white;
+            border: 1px solid black; /* 검정색 테두리 */
+            padding: 8px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">이력서 업데이트</h2>
+    <form id="resumeForm" method="POST">
+        {% csrf_token %}
+        <!-- 내용을 추가하거나 수정 -->
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <!-- 추가적인 JS 스크립트를 원하면 여기에 추가 -->
+    <script>
+        // 예시로 스크립트 추가
+        console.log('Resume Page Script');
+    </script>
+{% endblock %}
+
+

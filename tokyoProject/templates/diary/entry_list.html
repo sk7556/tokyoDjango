@@ -1,0 +1,14 @@
+<!-- File: templates/diary/entry_list.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Diary Entries</h1>
+
+  <ul>
+    {% for entry in object_list %}
+      <li>{{ entry.title }} - {{ entry.pub_date }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'diary:entry_create' %}">Create a new entry</a>
+{% endblock %}

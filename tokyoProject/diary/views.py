@@ -1,13 +1,14 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.shortcuts import render
+# File: views.py
+from django.views import generic
+from .models import DiaryEntry
+from .forms import DiaryEntryForm
 
-class DiaryDateSelectionAPIView(APIView):
-    def get(self, request):
-        return render(request, "diary/date_selection.html")
+class DiaryEntryListView(generic.ListView):
+    model = DiaryEntry
+    template_name = 'diary/entry_list.html'  # 해당 템플릿 파일을 만들어주어야 합니다.
 
-class DiaryDetailAPIView(APIView):
-    def get(self, request, year, month, day):
-        date_str = f"{year}-{month}-{day}"
-        return render(request, "diary/diary_detail.html", {"date": date_str})
+class DiaryEntryCreateView(generic.edit.CreateView):
+    model = DiaryEntry
+    form_class = DiaryEntryForm
+    template_name = 'diary/entry_form.html'  # 해당 템플릿 파일을 만들어주어야 합니다.
+    success_url = '/diary/'  # 성공 시 이동할 URL
