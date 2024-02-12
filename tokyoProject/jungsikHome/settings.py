@@ -4,13 +4,12 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-env = os.environ.get
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = env("DEBUG")
+DEBUG = os.environ.get("DEBUG") == 'True'
 
 ALLOWED_HOSTS = ['52.78.187.152', 'localhost']
 
