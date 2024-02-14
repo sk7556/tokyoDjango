@@ -50,7 +50,7 @@
     <form id="resumeForm" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="file" name="photo">
+        <input type="file" name="photo" id="photo">
         <div class="form-group">
             <label for="name">이름 :</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}">
