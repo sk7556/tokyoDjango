@@ -47,11 +47,43 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="mb-4">이력서 업데이트</h2>
-    <form id="resumeForm" method="POST">
-        {% csrf_token %}
-        <!-- 내용을 추가하거나 수정 -->
-    </form>
+    <!-- 이력서 섹션 -->
+<section class="resume-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{ resume.photo.url }}" alt="Your Photo" class="img-fluid rounded-circle" style="max-width: 150px; height: auto;">
+            </div>
+            <div class="col-md-9">
+                <!-- 각 항목을 나누고 줄 추가 -->
+                <div class="item">
+                    <h2>{{ resume.name }}</h2>
+                </div>
+                <div class="item">
+                    <p>좌우명: {{ resume.comment }}</p>
+                </div>
+                <div class="item">
+                    <p>경력: {{ resume.career }}</p>
+                </div>
+                <div class="item">
+                    <p>지원분야: {{ resume.role }}</p>
+                </div>
+                <div class="item">
+                    <p>연봉: {{ resume.salary }}</p>
+                </div>
+                <div class="item">
+                    <p>자기 소개: {{ resume.intro }}</p>
+                </div>
+                <div class="item">
+                    <p>개인 정보: {{ resume.information }}</p>
+                </div>
+                <div class="item">
+                    <p>보유 자격: {{ resume.certificate }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block scripts %}

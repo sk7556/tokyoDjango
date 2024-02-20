@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# 충돌이 의심되기에 일시 제거 
+# 충돌이 의심되기에 일시 제거. 개발용으로 사용한다는 코멘트
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",
 # ]
