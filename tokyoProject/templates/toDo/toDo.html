@@ -6,7 +6,7 @@
 
 {% block styles %}
 {% load static %}    
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}?after">
 {% endblock %}
 
 {% block content %}
@@ -51,17 +51,21 @@
                         listItem.classList.add('col');
                         listItem.classList.add('mb-4');
                         listItem.classList.add('licard');
+                    
+                        // 글자수 제한을 200자로 변경
+                        const truncatedContent = post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content;
+                    
                         listItem.innerHTML = `
-                            <div class="card h-120">
+                            <div class="h-200">
                                 <div class="card-body">
                                     <h5 class="card-title">${post.title}</h5>
-                                    <p class="card-text">${post.content.length > 50 ? post.content.substring(0, 50) + '...' : post.content}</p>
+                                    <p class="card-text">${truncatedContent}</p>
                                     <small class="text-muted">Created at: ${new Date(post.created_at).toLocaleString()}</small>
                                     <button type="button" onclick="deletePost(${post.id})" class="btn btn-sm btn-danger delete-btn mt-2">Delete</button>
                                 </div>
                             </div>
                         `;
-
+                    
                         postList.appendChild(listItem);
                     });
                 })

@@ -32,17 +32,21 @@ ul {
     justify-content: flex-start; 
 }
 
-li.licard {
+.licard {
     list-style-type: none;
-    background-color: #f0f0f0;
-    margin-left : 15px;
-    margin-right : 15px;
-    margin-bottom: 20px; 
     padding: 10px;
     border: 1px solid #000; 
     border-radius: 5px;
     width: calc(25% - 20px);
     box-sizing: border-box;
+    height: 300px; /* 세로 크기를 300px로 설정합니다 */
+    width: calc(50% - 20px); /* 가로 크기를 50%로 설정합니다 */
+    margin: 20px; /* 마진을 추가하여 카드 간의 간격을 조정합니다 */
+}
+
+.card {
+    background-color: none;
+    border : none;
 }
 
 strong {
