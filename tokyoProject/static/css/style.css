@@ -39,14 +39,9 @@ ul {
     border-radius: 5px;
     width: calc(25% - 20px);
     box-sizing: border-box;
-    height: 300px; /* 세로 크기를 300px로 설정합니다 */
-    width: calc(50% - 20px); /* 가로 크기를 50%로 설정합니다 */
-    margin: 20px; /* 마진을 추가하여 카드 간의 간격을 조정합니다 */
-}
-
-.card {
-    background-color: none;
-    border : none;
+    height: 300px; 
+    width: calc(50% - 20px); 
+    margin: 20px; 
 }
 
 strong {
@@ -58,9 +53,6 @@ strong {
 p {
     font-size: 14px;
     margin-bottom: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 small {
@@ -75,4 +67,14 @@ small {
     padding: 5px;
     border-radius: 3px;
     cursor: pointer;
+}
+
+#postform {
+    display: flex;
+    justify-content: center;
+}
+
+#postlist {
+    display: flex;
+    justify-content: center; 
 }
