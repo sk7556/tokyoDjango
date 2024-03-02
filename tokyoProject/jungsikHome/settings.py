@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # 추가 pip
     'bootstrap_datepicker_plus',
     'rest_framework',
+    'rest_framework_simplejwt',
     # 앱 리스트 
     'corsheaders',  
     'toDo',
@@ -44,6 +45,21 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        # 'rest_framework.permissions.AllowAny', # 누구나 접근
+        "rest_framework_simplejwt.authentication.JWTAuthentication",  # 인증된 사용자만 접근
+        # 'rest_framework.permissions.IsAdminUser', # 관리자만 접근
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=2),
+}
+
+
 
 # 추가된 AWS Url이 있다면 여기에 추가 
 CORS_ALLOWED_ORIGINS = [
