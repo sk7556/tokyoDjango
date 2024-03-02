@@ -2,7 +2,7 @@ django==5.0.1
 django-admin==2.0.2
 djangorestframework==3.14.0
 PyJWT==2.8.0
-djangorestframework-simplejwt==5.0.1
+djangorestframework-simplejwt==5.3.1
 django-cors-headers==4.3.1
 matplotlib==3.8.0
 pillow==10.1.0
