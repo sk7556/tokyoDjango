@@ -14,7 +14,7 @@ class LoginPageAPIView(APIView):
         return Response({"message": "This is the login page API."})
 
 def index(request):
-    return render(request, "jungsikHome/index.html")
+    return render(request, "resume/resume.html")
 
 def login_view(request):
     if request.method == 'POST':
