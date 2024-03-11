@@ -31,13 +31,13 @@
                 <img src="{{ resume.photo.url }}" alt="Your Photo" class="img-fluid rounded-circle" style="max-width: 150px; height: auto;">
             </div>
             <div class="col-md-9">
-                <!-- 각 항목을 나누고 줄 추가 -->
                 <div class="item">
-                    <h2>{{ resume.name }}</h2>
+                    <h2>{{ resume.comment }}</h2>
                 </div>
                 <div class="item">
-                    <p>좌우명: {{ resume.comment }}</p>
+                    <h2>이름 : {{ resume.name }}</h2>
                 </div>
+                
                 <div class="item">
                     <p>경력: {{ resume.career }}</p>
                 </div>

@@ -3,14 +3,14 @@ from .models import Resume
 import markdown
 
 class ResumeSerializer(serializers.ModelSerializer):
-    comment     = serializers.SerializerMethodField()
-    career      = serializers.SerializerMethodField()
-    name        = serializers.SerializerMethodField()
-    role        = serializers.SerializerMethodField()
-    salary      = serializers.SerializerMethodField()
-    intro       = serializers.SerializerMethodField()
-    information = serializers.SerializerMethodField()
-    certificate = serializers.SerializerMethodField()
+    comment     = serializers.CharField()
+    career      = serializers.CharField()
+    name        = serializers.CharField()
+    role        = serializers.CharField()
+    salary      = serializers.CharField()
+    intro       = serializers.CharField()
+    information = serializers.CharField()
+    certificate = serializers.CharField()
     
     class Meta:
         model = Resume
