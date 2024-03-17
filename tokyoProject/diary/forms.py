@@ -1,13 +1,7 @@
-# forms.py
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django import forms
-from .models import DiaryEntry
+from .models import Post
 
-class DiaryEntryForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
-        model = DiaryEntry
-        exclude = ['pub_date']
-
-    pub_date = forms.DateTimeField(
-        widget=DateTimePickerInput(),
-    )
+        model = Post
+        fields = ('title', 'content',)

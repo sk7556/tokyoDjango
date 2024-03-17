@@ -14,12 +14,10 @@ class ResumeAPIView(viewsets.ModelViewSet):
         return self.queryset.first()
     
 def resume_page(request):
-    # Resume 객체를 가져와 템플릿에 전달
     resume = Resume.objects.first()
     return render(request, "resume/resume.html", {'resume': resume})
 
 def update_resume(request):
-    # Resume 객체를 가져와 템플릿에 전달
     resume = Resume.objects.first()
     return render(request, 'resume/update_resume.html', {'resume': resume})
 

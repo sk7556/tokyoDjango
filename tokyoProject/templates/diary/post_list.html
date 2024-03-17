@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<table>
+  <thead>
+    <tr>
+      <th>Num</th>
+      <th>제목</th>
+      <th>작성일, 시</th>
+      <th>삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in posts %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><a href="{% url 'diary:post_detail' pk=post.pk %}">{{ post.title }}</a></td>
+      <td>{{ post.created_at }}</td>
+      <td>
+        <form action="{% url 'diary:post_delete' pk=post.pk %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="삭제">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
