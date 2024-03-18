@@ -7,8 +7,6 @@
     <title>이력서 업데이트</title>
     <!-- 부트스트랩 CSS 링크 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <!-- 추가적인 CSS 스타일링을 원하면 여기에 추가 -->
     <style>
         body {
@@ -59,15 +57,15 @@
         </div>
         <div class="form-group">
             <label for="comment">좌우명 :</label>
-            <textarea class="form-control markdown-editor" id="comment" name="comment">{{ resume.comment }}</textarea>
+            <textarea class="form-control" id="comment" name="comment">{{ resume.comment }}</textarea>
         </div>
         <div class="form-group">
             <label for="career">경력 :</label>
-            <textarea class="form-control markdown-editor" id="career" name="career">{{ resume.career }}</textarea>
+            <textarea class="form-control" id="career" name="career">{{ resume.career }}</textarea>
         </div>
         <div class="form-group">
             <label for="role">지원분야 :</label>
-            <textarea class="form-control markdown-editor" id="role" name="role">{{ resume.role }}</textarea>
+            <textarea class="form-control" id="role" name="role">{{ resume.role }}</textarea>
         </div>
         <div class="form-group">
             <label for="salary">희망연봉 :</label>
@@ -75,15 +73,15 @@
         </div>
         <div class="form-group">
             <label for="intro">자기소개 :</label>
-            <textarea class="form-control markdown-editor" id="intro" name="intro">{{ resume.intro }}</textarea>
+            <textarea class="form-control" id="intro" name="intro">{{ resume.intro }}</textarea>
         </div>
         <div class="form-group">
             <label for="information">개인정보 :</label>
-            <textarea class="form-control markdown-editor" id="information" name="information">{{ resume.information }}</textarea>
+            <textarea class="form-control" id="information" name="information">{{ resume.information }}</textarea>
         </div>
         <div class="form-group">
             <label for="certificate">자격증명 :</label>
-            <textarea class="form-control markdown-editor" id="certificate" name="certificate">{{ resume.certificate }}</textarea>
+            <textarea class="form-control" id="certificate" name="certificate">{{ resume.certificate }}</textarea>
         </div>
         <!-- 정보 업데이트 끝 -->
 
@@ -95,47 +93,15 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- simpleMDE 적용 -->
+
 <script>
-    document.querySelectorAll('.markdown-editor').forEach(function(element) {
-        new SimpleMDE({ element: element });
-    });
-</script>
-<script>
-    // SimpleMDE 인스턴스 저장을 위한 객체
-    var simplemdeInstances = {};
-    
-    // SimpleMDE 초기화 및 인스턴스 저장
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('.markdown-editor').forEach(function(element) {
-            // element.id를 키로 사용하여 SimpleMDE 인스턴스 저장
-            simplemdeInstances[element.id] = new SimpleMDE({ element: element });
-        });
-    });
-    
     function updateResume() {
-        const url = `http://52.78.187.152/resume/api/resumes/1/`; // 서버 주소에 맞게 수정 필요
-    
-        // FormData 객체를 사용하여 데이터 구성
-        var formData = new FormData();
-        formData.append('name', document.getElementById('name').value);
-        formData.append('comment', simplemdeInstances['comment'].value());
-        formData.append('career', simplemdeInstances['career'].value());
-        formData.append('role', simplemdeInstances['role'].value());
-        formData.append('salary', document.getElementById('salary').value);
-        formData.append('intro', simplemdeInstances['intro'].value());
-        formData.append('information', simplemdeInstances['information'].value());
-        formData.append('certificate', simplemdeInstances['certificate'].value());
-        
-        // 파일 입력 처리
-        var photoInput = document.querySelector('input[type="file"][name="photo"]');
-        if (photoInput.files[0]) {
-            formData.append('photo', photoInput.files[0]);
-        }
-    
-        fetch(url, {
-            method: 'PUT', // PATCH를 사용하는 경우에는 'PATCH'로 변경
-            body: formData, // FormData 객체를 직접 전송
+        var form = document.getElementById('resumeForm');
+        var formData = new FormData(form);
+
+        fetch(`http://http://52.78.187.152/resume/api/resumes/1/`, {
+            method: 'PUT',
+            body: formData,
         })
         .then(response => {
             if (!response.ok) {
@@ -145,16 +111,12 @@
         })
         .then(data => {
             console.log('Success:', data);
-            window.location.href = '/resume/'; // 성공 시 리다이렉션
+            window.location.href = '/resume/';
         })
         .catch((error) => {
             console.error('Error:', error);
         });
     }
-    </script>
-    
-    
-    
 </script>
 
 

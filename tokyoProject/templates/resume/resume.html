@@ -2,42 +2,9 @@
 
 {% block title %}남정식 이력서{% endblock %}
 
-{% block styles %}
-    <style>
-        .resume-section {
-            margin-top: 50px;
-            text-align: left; /* 이력서 부분 텍스트 왼쪽 정렬 */
-        }
-    
-        .item {
-            border-bottom: 1px solid #0B65C2; /* 부드러운 라임색 줄 */
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-    
-        /* 테마 색상 및 폰트 설정 */
-        h2, h3, p {
-            color: #0B65C2; /* 블루색 헤더 및 본문 색상 */
-        }
-
-        .name_role {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; 
-        }
-
-        #name {
-            flex-basis: 30%;
-        }
-
-        #role {
-            flex-basis: 50%;
-        }
-    </style>
-{% endblock %}
+{% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/resume.css' %}">{% endblock %}
 
 {% block content %}
-    <!-- 이력서 섹션 -->
 <section class="resume-section">
     <div class="container">
         <div class="row">
@@ -45,30 +12,29 @@
                 <img src="{{ resume.photo.url }}" alt="Your Photo" class="img-fluid rounded-circle" style="max-width: 150px; height: auto;">
             </div>
             <div class="col-md-9">
-                <div class="item">
-                    <h2>{{ resume.comment }}</h2>
+                <div class="item" id="comment">
+                    <p>{{ resume.comment | safe }}</p>
                 </div>
                 <div class="item name_role">
-                    <h3 id = "name">이름 : {{ resume.name }}</h3>
-                    <p id = "role">지원분야: {{ resume.role }}</p>
+                    <h3 id="name">이름 : {{ resume.name | safe }}</h3>
+                    <p id="role">지원분야: {{ resume.role | safe }}</p>
                 </div>
                 
-                <div class="item">
-                    <h3> 경력 </h3>
-                    <p> {{ resume.career }}</p>
+                <div class="item" id="career">
+                    <p>{{ resume.career | safe }}</p>
                 </div>
 
-                <div class="item">
-                    <p>연봉: {{ resume.salary }}</p>
+                <div class="item" id="salary">
+                    <p>연봉: {{ resume.salary | safe }}</p>
                 </div>
-                <div class="item">
-                    <p>자기 소개: {{ resume.intro }}</p>
+                <div class="item" id="intro">
+                    <p>자기 소개: {{ resume.intro | safe }}</p>
                 </div>
-                <div class="item">
-                    <p>개인 정보: {{ resume.information }}</p>
+                <div class="item" id="information">
+                    <p>개인 정보: {{ resume.information | safe }}</p>
                 </div>
-                <div class="item">
-                    <p>보유 자격: {{ resume.certificate }}</p>
+                <div class="item" id="certificate">
+                    <p>보유 자격: {{ resume.certificate | safe }}</p>
                 </div>
             </div>
         </div>
@@ -77,11 +43,13 @@
 {% endblock %}
 
 {% block scripts %}
-    <!-- 추가적인 JS 스크립트를 원하면 여기에 추가 -->
-    <script>
-        // 예시로 스크립트 추가
-        console.log('Resume Page Script');
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.item p').forEach(function(p) {
+            // 마크다운 형식의 텍스트를 HTML로 변환
+            p.innerHTML = marked.parse(p.textContent);
+        });
+    });
+</script>
 {% endblock %}
-
-
