@@ -77,10 +77,19 @@
 {% endblock %}
 
 {% block scripts %}
-    <!-- 추가적인 JS 스크립트를 원하면 여기에 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        // 예시로 스크립트 추가
-        console.log('Resume Page Script');
+        // 페이지가 로드되었을 때 실행
+        document.addEventListener('DOMContentLoaded', function() {
+            // 마크다운을 HTML로 변환하고 해당 요소에 적용
+            document.querySelectorAll('.item p').forEach(function(element) {
+                if(element.parentElement.id) { // id가 있는 요소만 처리
+                    var originalMarkdown = element.innerText; // 원본 마크다운 텍스트
+                    var convertedHtml = marked(originalMarkdown); // 마크다운을 HTML로 변환
+                    element.innerHTML = convertedHtml; // 변환된 HTML 적용
+                }
+            });
+        });
     </script>
 {% endblock %}
 
