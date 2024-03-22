@@ -1,0 +1,36 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">{% endblock %}
+
+{% block content %}
+<div class="container detail-container">
+    <div class="detail-header">
+        <h2>{{ post.title }}</h2>
+    </div>
+    <div class="detail-content">
+        <p>{{ post.content }}</p>
+    </div>
+    <div class="action-buttons">
+        <a href="{% url 'diary:post_list' %}" class="btn btn-info">글 목록</a>
+        <a href="{% url 'diary:post_edit' pk=post.pk %}" class="btn btn-primary">글 수정</a>
+        <a href="javascript:void(0);" class="btn btn-danger" onclick="confirmDelete('{% url 'diary:post_delete' pk=post.pk %}')">글 삭제</a>
+      </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function confirmDelete(deleteUrl) {
+    const confirmResponse = confirm("글을 삭제합니까?");
+    if (confirmResponse) {
+        // 사용자가 확인을 선택한 경우, 삭제 URL로 리다이렉트합니다.
+        window.location.href = deleteUrl;
+    }
+    // 사용자가 취소를 선택한 경우, 아무 작업도 하지 않습니다.
+  }
+</script>
+{% endblock %}
