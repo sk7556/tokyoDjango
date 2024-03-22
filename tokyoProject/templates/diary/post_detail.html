@@ -1,29 +1,8 @@
 {% extends 'base_generic.html' %}
 
-{% block styles %}
-<style>
-    .detail-container {
-        width: 80%;
-        margin: 20px auto; /* 가운데 정렬 및 상단 여백 */
-        border: 2px dashed #0B65C2; /* 파란색 점선 */
-        padding: 20px;
-    }
+{% block title %}{{ post.title }}{% endblock %}
 
-    .detail-header, .detail-content {
-        padding: 10px;
-    }
-
-    .detail-header {
-        border-bottom: 2px dashed #0B65C2; /* 제목과 내용을 구분하는 파란색 점선 */
-        margin-bottom: 20px;
-    }
-
-    .action-buttons {
-        text-align: right; /* 버튼을 우측 정렬 */
-        margin-top: 20px;
-    }
-</style>
-{% endblock %}
+{% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">{% endblock %}
 
 {% block content %}
 <div class="container detail-container">

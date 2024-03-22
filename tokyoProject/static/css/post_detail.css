@@ -1,0 +1,20 @@
+.detail-container {
+    width: 80%;
+    margin: 20px auto; 
+    border: 2px dashed #0B65C2; 
+    padding: 20px;
+}
+
+.detail-header, .detail-content {
+    padding: 10px;
+}
+
+.detail-header {
+    border-bottom: 2px dashed #0B65C2; 
+    margin-bottom: 20px;
+}
+
+.action-buttons {
+    text-align: right; 
+    margin-top: 20px;
+}
