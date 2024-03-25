@@ -47,7 +47,8 @@
 
 <div class="container">
     <h2 class="mb-4">이력서 업데이트</h2>
-    <form id="resumeForm" method="POST">
+    <form id="resumeForm" method="POST" enctype="multipart/form-data">
+
         {% csrf_token %}
         {{ form.as_p }}
         <input type="file" name="photo" id="photo">
@@ -102,6 +103,7 @@
         fetch(`http://52.78.187.152/resume/api/resumes/1/`, {
             method: 'PUT',
             body: formData,
+            credentials: 'include',
         })
         .then(response => {
             if (!response.ok) {
