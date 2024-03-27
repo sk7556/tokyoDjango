@@ -3,6 +3,9 @@
 {% block title %}남정식 이력서{% endblock %}
 
 {% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/resume.css' %}">{% endblock %}
+{% block headerJS %}
+<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+{% endblock %}
 
 {% block content %}
 <section class="resume-section">
@@ -40,12 +43,20 @@
         </div>
     </div>
 </section>
+
 {% endblock %}
 
-{% block scripts %}
-    <!-- 추가적인 JS 스크립트를 원하면 여기에 추가 -->
-    <script>
-        // 예시로 스크립트 추가
-        console.log('Resume Page Script');
-    </script>
+{% block scripts %}  
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var converter = new showdown.Converter();
+    // 'item' 클래스를 가진 모든 요소 내부의 <p> 태그를 찾습니다.
+    var itemParagraphs = document.querySelectorAll('.item p');
+
+    itemParagraphs.forEach(function(p) {
+        // `innerText`를 사용하여 Markdown 데이터를 가져온 후, `Showdown`으로 HTML로 변환
+        p.innerHTML = converter.makeHtml(p.innerText);
+    });
+});
+</script>
 {% endblock %}
