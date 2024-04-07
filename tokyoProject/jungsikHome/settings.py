@@ -13,16 +13,20 @@ DEBUG = os.environ.get("DEBUG") == 'True'
 
 ALLOWED_HOSTS = ['52.78.187.152', 'localhost']
 
-# CORS 관련 설정
+# CORS 관련 설정 *************************
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:5500',
-    'http://localhost:8000',
-    'http://127.0.0.1:5500',
-    'http://127.0.0.1:8000',
-    'http://52.78.187.152',
-)
+# 모든 출처 허용
+CORS_ORIGIN_ALLOW_ALL = True # CORS 설정관련 해결 필요
+
+# # 허용하는 url 리스트 
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:5500',
+#     'http://localhost:8000',
+#     'http://127.0.0.1:5500',
+#     'http://127.0.0.1:8000',
+#     'http://52.78.187.152',
+# )
 
 # Application definition
 
@@ -68,8 +72,6 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(hours=2),
 }
-
-
 
 # 추가된 AWS Url이 있다면 여기에 추가 
 CORS_ALLOWED_ORIGINS = [
