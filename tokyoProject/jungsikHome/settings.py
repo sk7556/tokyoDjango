@@ -11,22 +11,23 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG") == 'True'
 
-ALLOWED_HOSTS = ['52.78.187.152', 'localhost']
+ALLOWED_HOSTS = ['3.39.123.7', 'localhost','jungsik.net']
 
 # CORS 관련 설정 *************************
 CORS_ALLOW_CREDENTIALS = True
 
 # 모든 출처 허용
-CORS_ORIGIN_ALLOW_ALL = True # CORS 설정관련 해결 필요
+# CORS_ORIGIN_ALLOW_ALL = True # CORS 설정관련 해결 필요
 
 # # 허용하는 url 리스트 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:5500',
-#     'http://localhost:8000',
-#     'http://127.0.0.1:5500',
-#     'http://127.0.0.1:8000',
-#     'http://52.78.187.152',
-# )
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:5500',
+    'http://localhost:8000',
+    'http://127.0.0.1:5500',
+    'http://127.0.0.1:8000',
+    'http://3.39.123.7/',
+    'http://jungsik.net/',
+)
 
 # Application definition
 
@@ -79,7 +80,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:5500",
     "http://127.0.0.1:8000",
-    "http://52.78.187.152",
+    "http://3.39.123.7",
+    "http://jungsik.net",
 ]
 
 ROOT_URLCONF = 'jungsikHome.urls'
