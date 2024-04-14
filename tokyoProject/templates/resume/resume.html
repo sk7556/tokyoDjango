@@ -50,11 +50,9 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var converter = new showdown.Converter();
-    // 'item' 클래스를 가진 모든 요소 내부의 <p> 태그를 찾습니다.
     var itemParagraphs = document.querySelectorAll('.item p');
 
     itemParagraphs.forEach(function(p) {
-        // `innerText`를 사용하여 Markdown 데이터를 가져온 후, `Showdown`으로 HTML로 변환
         p.innerHTML = converter.makeHtml(p.innerText);
     });
 });
