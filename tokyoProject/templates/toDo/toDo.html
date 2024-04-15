@@ -10,6 +10,9 @@
 {% endblock %}
 
 {% block content %}
+    <script>
+        var isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+    </script>
     <div class="container">
         <h1 class="my-4">To Do </h1>
 
@@ -40,7 +43,7 @@
         });
 
         function fetchPosts() {
-            fetch('http://52.78.187.152/todo/api/posts/')
+            fetch('http://3.39.123.7/todo/api/posts/')
                 .then(response => response.json())
                 .then(data => {
                     const postList = document.getElementById('postList');
@@ -78,10 +81,15 @@
         }
 
         function createPost() {
+            if (!isAuthenticated) {
+                alert('로그인 된 사용자만 사용 가능합니다.');
+                return;
+            }
+
             const title = document.getElementById('title').value;
             const content = document.getElementById('content').value;
 
-            fetch('http://52.78.187.152/todo/api/posts/', {
+            fetch('http://3.39.123.7/todo/api/posts/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,7 +106,12 @@
         }
         
         function deletePost(postId) {
-            fetch(`http://52.78.187.152/todo/api/posts/${postId}/`, {
+            if (!isAuthenticated) {
+                alert('로그인 된 사용자만 사용 가능합니다.');
+                return;
+            }
+
+            fetch(`http://3.39.123.7/todo/api/posts/${postId}/`, {
                 method: 'DELETE',
             })
             .then(response => {
