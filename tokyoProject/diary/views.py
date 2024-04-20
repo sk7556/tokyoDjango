@@ -1,20 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Post
 from .forms import PostForm
 
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user  # Ensure you are setting the author if your model requires it
+            post.author = request.user
             post.save()
             return redirect('diary:post_detail', pk=post.pk)
         else:
@@ -24,7 +22,6 @@ def post_new(request):
         return render(request, 'diary/post_edit.html', {'form': form})
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -39,16 +36,21 @@ def post_edit(request, pk):
         return render(request, 'diary/post_edit.html', {'form': form, 'post': post})
 
 @api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('diary:post_list')
 
 def post_list(request):
-    posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'diary/post_list.html', {'posts': posts})
+    if request.method == 'GET':
+        posts = Post.objects.all().order_by('-created_at')
+        return render(request, 'diary/post_list.html', {'posts': posts})
+    else:
+        return Response({"detail": "Method not allowed."}, status=405)
 
 def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'diary/post_detail.html', {'post': post})
+    if request.method == 'GET':
+        post = get_object_or_404(Post, pk=pk)
+        return render(request, 'diary/post_detail.html', {'post': post})
+    else:
+        return Response({"detail": "Method not allowed."}, status=405)
