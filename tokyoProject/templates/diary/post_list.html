@@ -24,13 +24,39 @@
       <td><a href="{% url 'diary:post_detail' pk=post.pk %}">{{ post.title }}</a></td>
       <td>{{ post.created_at }}</td>
       <td>
-        <form action="{% url 'diary:post_delete' pk=post.pk %}" method="post">
+        <form id="deleteForm{{ forloop.counter }}" action="{% url 'diary:post_delete' pk=post.pk %}" method="post">
           {% csrf_token %}
-          <input type="submit" value="삭제">
+          <input type="submit" value="삭제" class="delete-btn" data-id="{{ forloop.counter }}">
         </form>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 사용자 인증 상태 확인
+    var isAuthenticated = {% if request.user.is_authenticated %} true {% else %} false {% endif %};
+
+    // 삭제 버튼 클릭 시 confirm 창 표시
+    var deleteBtns = document.querySelectorAll('.delete-btn');
+    deleteBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(event) {
+            var postId = event.target.dataset.id;
+            if (!isAuthenticated) {
+                event.preventDefault();
+                alert('로그인이 필요합니다.');
+            } else {
+                if (!confirm('정말로 삭제하시겠습니까?')) {
+                    event.preventDefault();
+                } else {
+                    document.getElementById('deleteForm' + postId).submit();
+                }
+            }
+        });
+    });
+});
+</script>
+
 {% endblock %}

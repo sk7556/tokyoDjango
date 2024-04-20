@@ -1,8 +1,8 @@
-# serializers.py
 from rest_framework import serializers
-from .models import DiaryEntry
+from .models import Post
 
-class DiaryEntrySerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DiaryEntry
-        fields = '__all__'
+        model = Post
+        fields = ['id', 'title', 'content', 'created_at']
+        read_only_fields = ['created_at']

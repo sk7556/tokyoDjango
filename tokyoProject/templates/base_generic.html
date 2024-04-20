@@ -42,19 +42,9 @@
         </div>
 
         <!-- 로그인/로그아웃 링크 -->
-        <div class="ml-auto">
-            {% if user.is_authenticated %}
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button type="submit" class="btn btn-outline-primary">로그아웃</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary">로그인</a>
-
-            {% endif %}
+        <div class="ml-auto" id="authContainer">
+            <!-- 동적 로그인/로그아웃 버튼이 여기에 위치하게 됩니다 -->
         </div>
-        <!-- 로그인 링크 끝-->
     </div>
 </nav>
 
@@ -70,5 +60,31 @@
 
 {% block scripts %}{% endblock %}
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
+});
+
+function updateAuthUI() {
+    const loginContainer = document.getElementById('authContainer');
+    const token = localStorage.getItem('access_token');
+
+    if (token) {
+        loginContainer.innerHTML = `
+            <button onclick="logout()" class="btn btn-outline-primary">로그아웃</button>
+        `;
+    } else {
+        loginContainer.innerHTML = `
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary">로그인</a>
+        `;
+    }
+}
+
+function logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');  // If using refresh tokens
+    window.location.href = "{% url 'login' %}";  // Redirect to login or home page after logout
+}
+</script>
 </body>
 </html>
