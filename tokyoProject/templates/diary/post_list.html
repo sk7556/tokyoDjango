@@ -1,6 +1,9 @@
 {% extends 'base_generic.html' %}
 
-{% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/post_list.css' %}">{% endblock %}
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
 
 {% block content %}
 
@@ -37,7 +40,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 사용자 인증 상태 확인
-    var isAuthenticated = {% if request.user.is_authenticated %} true {% else %} false {% endif %};
+    var isAuthenticated = {{ user.is_authenticated|lower }};
 
     // 삭제 버튼 클릭 시 confirm 창 표시
     var deleteBtns = document.querySelectorAll('.delete-btn');

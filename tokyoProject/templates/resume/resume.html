@@ -63,13 +63,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (token) {
         updateButton.addEventListener('click', function() {
-            window.location.href = '{% url 'resume:update_resume' %}';
+            fetch('{% url 'resume:update_resume' %}', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '{% url 'resume:update_resume' %}';
+                } else {
+                    alert('토큰이 유효하지 않습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('에러 발생:', error);
+                alert('요청을 처리하는 중에 오류가 발생했습니다.');
+            });
         });
     } else {
         updateButton.addEventListener('click', function() {
             alert('로그인 된 사용자만 사용 가능합니다.');
         });
     }
+
 });
 </script>
 {% endblock %}
