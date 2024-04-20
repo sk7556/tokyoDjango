@@ -2,7 +2,10 @@
 
 {% block title %}포스트 목록{% endblock %}
 
-{% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/post_list.css' %}">{% endblock %}
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
 
 {% block content %}
 
@@ -26,39 +29,55 @@
       <td><a href="{% url 'diary:post_detail' pk=post.pk %}">{{ post.title }}</a></td>
       <td>{{ post.created_at }}</td>
       <td>
-        <form id="deleteForm{{ forloop.counter }}" action="{% url 'diary:post_delete' pk=post.pk %}" method="post">
-          {% csrf_token %}
-          <input type="submit" value="삭제" class="delete-btn" data-id="{{ forloop.counter }}">
-        </form>
+        <button type="button" class="btn btn-danger delete-btn" data-id="{{ post.pk }}">삭제</button>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 사용자 인증 상태 확인
-    var isAuthenticated = localStorage.getItem('access_token') ? true : false;
-
-    // 삭제 버튼 클릭 시 confirm 창 표시
+    // 삭제 버튼 클릭 시 confirm 창 표시 및 삭제 작업 처리
     var deleteBtns = document.querySelectorAll('.delete-btn');
     deleteBtns.forEach(function(btn) {
         btn.addEventListener('click', function(event) {
             var postId = event.target.dataset.id;
-            if (!isAuthenticated) {
-                event.preventDefault();
-                alert('로그인이 필요합니다.');
-            } else {
-                if (!confirm('정말로 삭제하시겠습니까?')) {
-                    event.preventDefault();
-                } else {
-                    document.getElementById('deleteForm' + postId).submit();
-                }
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                deletePost(postId);
             }
         });
     });
 });
+
+// 포스트 삭제 함수
+function deletePost(postId) {
+    var token = localStorage.getItem('access_token'); // JWT 토큰을 로컬 스토리지에서 가져옵니다.
+    fetch(`http://3.39.123.7/diary/api/posts/${postId}/`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`, // JWT 토큰을 사용하여 인증
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        // 삭제 성공 시 페이지 새로고침
+        window.location.reload();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('삭제 실패: ' + error.message);
+    });
+}
 </script>
 
 {% endblock %}

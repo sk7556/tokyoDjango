@@ -23,18 +23,20 @@
     </div>
     <div class="action-buttons">
         <a href="{% url 'diary:post_list' %}" class="btn btn-info">글 목록</a>
-        <a id="editBtn" href="{% url 'diary:post_edit' pk=post.pk %}" class="btn btn-primary">글 수정</a>
-        <a id="deleteBtn" href="javascript:void(0);" class="btn btn-danger">글 삭제</a>
+        
+        <a id="updateBtn" href="{% url 'diary:post_edit' pk=post.pk %}" class="btn btn-primary">글 수정</a>
+        <a id="deleteBtn" href="javascript:void(0);" data-pk="{{ post.pk }}" class="btn btn-danger">글 삭제</a>
+
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var token = localStorage.getItem('access_token');
-        var updateButton = document.getElementById('updateButton');
+        var updateBtn = document.getElementById('updateBtn');
     
         if (token) {
-            updateButton.addEventListener('click', function() {
+            updateBtn.addEventListener('click', function() {
                 fetch('{% url 'resume:update_resume' %}', {
                     method: 'GET',
                     headers: {
@@ -54,11 +56,53 @@
                 });
             });
         } else {
-            updateButton.addEventListener('click', function() {
+            updateBtn.addEventListener('click', function() {
                 alert('로그인 된 사용자만 사용 가능합니다.');
             });
         }
     });
-    
+ 
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteButton = document.getElementById('deleteBtn');
+        var token = localStorage.getItem('access_token');
+
+        deleteButton.addEventListener('click', function() {
+            if (!token) {
+                alert('로그인이 필요합니다.');
+                return;
+            }
+
+            if (confirm('정말로 삭제하시겠습니까?')) {
+                deletePost();
+            }
+        });
+
+        function deletePost() {
+            var postId = {{ post.pk }};
+            fetch(`http://3.39.123.7/diary/api/posts/${postId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // 삭제 성공 시 이동
+                window.location.href = '{% url 'diary:post_list' %}';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('삭제 실패: ' + error.message);
+            });
+        }
+    });
 </script>
+
 {% endblock %}
