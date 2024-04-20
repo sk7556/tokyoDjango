@@ -42,6 +42,12 @@
             fetchPosts();
         });
 
+        // JWT 토큰 처리 
+        function storeToken(access, refresh) {
+            localStorage.setItem('access_token', access);
+            localStorage.setItem('refresh_token', refresh);
+        }
+
         function fetchPosts() {
             fetch('http://3.39.123.7/todo/api/posts/')
                 .then(response => response.json())
@@ -81,6 +87,8 @@
         }
 
         function createPost() {
+            const token = localStorage.getItem('access_token');
+
             if (!isAuthenticated) {
                 alert('로그인 된 사용자만 사용 가능합니다.');
                 return;
@@ -93,6 +101,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ title, content }),
             })
@@ -113,6 +122,9 @@
 
             fetch(`http://3.39.123.7/todo/api/posts/${postId}/`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
             })
             .then(response => {
                 if (response.ok) {
