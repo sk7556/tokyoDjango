@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
-from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from django.http import HttpResponse
 from .models import Resume
 from .serializers import ResumeSerializer
@@ -18,10 +18,11 @@ def resume_page(request):
     resume = Resume.objects.first()
     return render(request, "resume/resume.html", {'resume': resume})
 
-@login_required(login_url='/login/')
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def update_resume(request):
     resume = Resume.objects.first()
-    if request.user.is_authenticated:
-        return render(request, 'resume/update_resume.html', {'resume': resume})
-    else:
-        return HttpResponse("로그인 된 사용자만 사용 가능합니다.", status=403)
+    if request.method == 'POST':
+        # Update the resume here
+        pass
+    return render(request, 'resume/update_resume.html', {'resume': resume})

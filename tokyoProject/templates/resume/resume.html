@@ -16,11 +16,7 @@
             </div>
             <div class="col-md-9">
                 <!-- Update Button -->
-                {% if user.is_authenticated %}
-                <button onclick="window.location.href='{% url 'resume:update_resume' %}';">이력서 수정</button>
-                {% else %}
-                <button onclick="alert('로그인 된 사용자만 사용 가능합니다.');">이력서 수정</button>
-                {% endif %}
+                <button id="updateButton">이력서 수정</button>
                 <div class="item" id="comment">
                     <p>{{ resume.comment | safe }}</p>
                 </div>
@@ -61,6 +57,19 @@ document.addEventListener('DOMContentLoaded', function() {
     itemParagraphs.forEach(function(p) {
         p.innerHTML = converter.makeHtml(p.innerText);
     });
+
+    var token = localStorage.getItem('access_token');
+    var updateButton = document.getElementById('updateButton');
+
+    if (token) {
+        updateButton.addEventListener('click', function() {
+            window.location.href = '{% url 'resume:update_resume' %}';
+        });
+    } else {
+        updateButton.addEventListener('click', function() {
+            alert('로그인 된 사용자만 사용 가능합니다.');
+        });
+    }
 });
 </script>
 {% endblock %}

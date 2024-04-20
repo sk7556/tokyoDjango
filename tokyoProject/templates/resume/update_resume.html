@@ -8,36 +8,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: white; /* 흰색 배경 */
-            color: black; /* 검정색 폰트 */
+            background-color: white;
+            color: black;
         }
-
         .container {
-            max-width: 800px; /* 컨테이너 최대 너비 설정 */
-            margin: 0 auto; /* 가운데 정렬 */
+            max-width: 800px;
+            margin: 0 auto;
             margin-top: 50px;
         }
-
         h2 {
-            color: #0B65C2; /* 블루색 헤더 색상 */
+            color: #0B65C2;
         }
-
         label {
-            color: #0B65C2; /* 블루색 라벨 색상 */
+            color: #0B65C2;
         }
-
         .form-group {
-            margin-bottom: 20px; /* 각 폼 그룹 간 간격 설정 */
+            margin-bottom: 20px;
         }
-
         .btn-primary {
-            background-color: #0B65C2; /* 블루색 버튼 배경색 */
-            border-color: #0B65C2; /* 블루색 버튼 테두리색 */
+            background-color: #0B65C2;
+            border-color: #0B65C2;
         }
-
         .btn-primary:hover {
-            background-color: #074380; /* 블루색 버튼 배경색 (hover 시) */
-            border-color: #074380; /* 블루색 버튼 테두리색 (hover 시) */
+            background-color: #074380;
+            border-color: #074380;
         }
     </style>
 </head>
@@ -46,49 +40,31 @@
 <div class="container">
     <h2 class="mb-4">이력서 업데이트</h2>
     <form id="resumeForm" method="POST" enctype="multipart/form-data">
-
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="file" name="photo" id="photo">
         <div class="form-group">
+            <input type="file" name="photo" id="photo">
             <label for="name">이름 :</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}">
-        </div>
-        <div class="form-group">
             <label for="comment">좌우명 :</label>
             <textarea class="form-control" id="comment" name="comment">{{ resume.comment | linebreaks }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="career">경력 :</label>
             <textarea class="form-control" id="career" name="career">{{ resume.career | linebreaks }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="role">지원분야 :</label>
             <textarea class="form-control" id="role" name="role">{{ resume.role | linebreaks }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="salary">희망연봉 :</label>
             <textarea class="form-control" id="salary" name="salary">{{ resume.salary | linebreaks }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="intro">자기소개 :</label>
             <textarea class="form-control" id="intro" name="intro">{{ resume.intro | linebreaks }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="information">개인정보 :</label>
             <textarea class="form-control" id="information" name="information">{{ resume.information | linebreaks }}</textarea>
-        </div>
-        <div class="form-group">
             <label for="certificate">자격증명 :</label>
             <textarea class="form-control" id="certificate" name="certificate">{{ resume.certificate | linebreaks }}</textarea>
         </div>
-        <!-- 정보 업데이트 끝 -->
-
         <button type="button" class="btn btn-primary" onclick="updateResume()">완료</button>
     </form>
 </div>
 
-<!-- 부트스트랩 JS, jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -97,11 +73,15 @@
     function updateResume() {
         var form = document.getElementById('resumeForm');
         var formData = new FormData(form);
+        var token = localStorage.getItem('access_token'); // JWT 토큰을 로컬 스토리지에서 가져옵니다.
 
         fetch(`http://3.39.123.7/resume/api/resumes/1/`, {
             method: 'PUT',
-            body: formData,
-            credentials: 'include',
+            headers: {
+                'Authorization': 'Bearer ' + token, // JWT 토큰을 사용하여 인증
+                'Accept': 'application/json'
+            },
+            body: formData
         })
         .then(response => {
             if (!response.ok) {
@@ -115,10 +95,9 @@
         })
         .catch((error) => {
             console.error('Error:', error);
+            alert('업데이트 실패: ' + error.message);
         });
     }
 </script>
-
-
 </body>
 </html>
