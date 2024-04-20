@@ -2,7 +2,11 @@
 
 {% block title %}남정식 이력서{% endblock %}
 
-{% block styles %}{% load static %}<link rel="stylesheet" href="{% static 'css/resume.css' %}">{% endblock %}
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+{% endblock %}
+
 {% block headerJS %}
 <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
 {% endblock %}
@@ -46,40 +50,27 @@
     </div>
 </section>
 
-{% endblock %}
-
-{% block scripts %}  
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var token = localStorage.getItem('access_token');
-        var updateButton = document.getElementById('updateButton');
-    
-        if (token) {
-            updateButton.addEventListener('click', function() {
-                fetch('{% url 'resume:update_resume' %}', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = '{% url 'resume:update_resume' %}';
-                    } else {
-                        alert('토큰이 유효하지 않습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('에러 발생:', error);
-                    alert('요청을 처리하는 중에 오류가 발생했습니다.');
-                });
-            });
-        } else {
-            updateButton.addEventListener('click', function() {
-                alert('로그인 된 사용자만 사용 가능합니다.');
-            });
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    var converter = new showdown.Converter();
+    var itemParagraphs = document.querySelectorAll('.item p');
+
+    itemParagraphs.forEach(function(p) {
+        p.innerHTML = converter.makeHtml(p.innerText);
     });
-    
+
+    var token = localStorage.getItem('access_token');
+    var updateButton = document.getElementById('updateButton');
+
+    if (token) {
+        updateButton.addEventListener('click', function() {
+            window.location.href = '{% url 'resume:update_resume' %}';
+        });
+    } else {
+        updateButton.addEventListener('click', function() {
+            alert('로그인 된 사용자만 사용 가능합니다.');
+        });
+    }
+});
 </script>
 {% endblock %}
