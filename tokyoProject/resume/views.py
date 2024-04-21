@@ -10,10 +10,10 @@ class ResumeAPIView(viewsets.ModelViewSet):
     serializer_class = ResumeSerializer
 
     def get_permissions(self):
-        if self.action == 'retrieve':
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [IsAuthenticated]
+        # if self.action == 'retrieve':
+        permission_classes = [AllowAny]
+        # else:
+            # permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
     def get_object(self):
@@ -23,12 +23,8 @@ def resume_page(request):
     resume = Resume.objects.first()
     return render(request, "resume/resume.html", {'resume': resume})
 
-@api_view(['GET', 'POST'])
 def update_resume(request):
     resume = Resume.objects.first()
-    if request.method == 'POST':
-        # Update the resume here
-        pass
     return render(request, 'resume/update_resume.html', {'resume': resume})
 
 update_resume = permission_classes([IsAuthenticated])(update_resume)
