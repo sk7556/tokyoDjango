@@ -10,74 +10,37 @@
 {% block content %}
 
 <div class="text-right mb-3">
-  <a href="{% url 'diary:post_new' %}" class="btn btn-primary">글 쓰기</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'diary:post_new' %}" class="btn btn-primary">글 쓰기</a>
+    {% endif %}
 </div>
 
 <table>
-  <thead>
-    <tr>
-      <th>Num</th>
-      <th>제목</th>
-      <th>작성일, 시</th>
-      <th>삭제</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for post in posts %}
-    <tr>
-      <td>{{ forloop.counter }}</td>
-      <td><a href="{% url 'diary:post_detail' pk=post.pk %}">{{ post.title }}</a></td>
-      <td>{{ post.created_at }}</td>
-      <td>
-        <button type="button" class="btn btn-danger delete-btn" data-id="{{ post.pk }}">삭제</button>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
+    <thead>
+        <tr>
+            <th>Num</th>
+            <th>제목</th>
+            <th>작성일, 시</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'diary:post_detail' pk=post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.created_at }}</td>
+            <td>
+                {% if user.is_authenticated %}
+                <form action="{% url 'diary:post_delete' pk=post.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="삭제" class="btn btn-danger">
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 삭제 버튼 클릭 시 confirm 창 표시 및 삭제 작업 처리
-    var deleteBtns = document.querySelectorAll('.delete-btn');
-    deleteBtns.forEach(function(btn) {
-        btn.addEventListener('click', function(event) {
-            var postId = event.target.dataset.id;
-            if (confirm('정말로 삭제하시겠습니까?')) {
-                deletePost(postId);
-            }
-        });
-    });
-});
-
-// 포스트 삭제 함수
-function deletePost(postId) {
-    var token = localStorage.getItem('access_token'); // JWT 토큰을 로컬 스토리지에서 가져옵니다.
-    fetch(`http://3.39.123.7/diary/api/posts/${postId}/`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`, // JWT 토큰을 사용하여 인증
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        // 삭제 성공 시 페이지 새로고침
-        window.location.reload();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('삭제 실패: ' + error.message);
-    });
-}
-</script>
 
 {% endblock %}

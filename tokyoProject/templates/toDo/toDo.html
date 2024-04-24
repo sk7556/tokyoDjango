@@ -115,6 +115,13 @@
         }
         
         function deletePost(postId) {
+            const token = localStorage.getItem('access_token');
+
+            if (!isAuthenticated) {
+                alert('로그인 된 사용자만 사용 가능합니다.');
+                return;
+            }
+            
             if (!isAuthenticated) {
                 alert('로그인 된 사용자만 사용 가능합니다.');
                 return;
