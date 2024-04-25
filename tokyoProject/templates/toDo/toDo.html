@@ -1,5 +1,3 @@
-
-
 {% extends 'base_generic.html' %}
 
 {% block title %} 내가 해야 할 일 {% endblock %}
@@ -10,141 +8,126 @@
 {% endblock %}
 
 {% block content %}
-    <script>
-        var isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
-    </script>
-    <div class="container">
-        <h1 class="my-4">To Do </h1>
+<div class="container">
+    <h1 class="my-4">To Do </h1>
 
-        <form id="postForm">
-            <div class="mb-3" >
-                <label for="title" class="form-label cols-3">Title:</label>
-                <input type="text" id="title" name="title" class="form-control" required>
-            </div>
+    <form id="postForm">
+        <div class="mb-3" >
+            <label for="title" class="form-label cols-3">Title:</label>
+            <input type="text" id="title" name="title" class="form-control" required>
+        </div>
 
-            <div class="mb-3">
-                <label for="content" class="form-label cols-3">Content:</label>
-                <textarea id="content" name="content" class="form-control" required></textarea>
-            </div>
+        <div class="mb-3">
+            <label for="content" class="form-label cols-3">Content:</label>
+            <textarea id="content" name="content" class="form-control" required></textarea>
+        </div>
 
-            <button type="button" onclick="createPost()" class="btn btn-success">Create Post</button>
-        </form>
+        <button type="button" onclick="createPost()" class="btn btn-success">Create Post</button>
+    </form>
 
-        <ul id="postList" class="row row-cols-1 row-cols-md-3 g-4"></ul>
-    </div>
+    <ul id="postList" class="row row-cols-1 row-cols-md-3 g-4"></ul>
+</div>
 
-    <!-- jQuery, Bootstrap.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- jQuery, Bootstrap.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchPosts();
-        });
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    fetchPosts();
+});
 
-        // JWT 토큰 처리 
-        function storeToken(access, refresh) {
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-        }
+function fetchPosts() {
+    fetch('http://3.39.123.7/todo/api/posts/')
+        .then(response => response.json())
+        .then(data => {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = ''; 
 
-        function fetchPosts() {
-            fetch('http://3.39.123.7/todo/api/posts/')
-                .then(response => response.json())
-                .then(data => {
-                    const postList = document.getElementById('postList');
-                    postList.innerHTML = ''; 
-
-                    data.forEach(post => {
-                        const listItem = document.createElement('li');
-                        listItem.classList.add('col');
-                        listItem.classList.add('mb-4');
-                        listItem.classList.add('licard');
-                    
-                        // 글자수 제한을 200자로 변경
-                        const truncatedContent = post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content;
-                    
-                        listItem.innerHTML = `
-                            <div class="h-200">
-                                <div class="card-body">
-                                    <h5 class="card-title">${post.title}</h5>
-                                    <p class="card-text">${truncatedContent}</p>
-                                    <small class="text-muted">Created at: ${new Date(post.created_at).toLocaleString()}</small>
-                                    <button type="button" onclick="deletePost(${post.id})" class="btn btn-sm btn-danger delete-btn mt-2">Delete</button>
-                                </div>
-                            </div>
-                        `;
-                    
-                        postList.appendChild(listItem);
-                    });
-                })
-                .catch(error => console.error('Error fetching posts:', error));
-        }
-        
-        function clearFields() {
-            document.getElementById('title').value = '';
-            document.getElementById('content').value = '';
-        }
-
-        function createPost() {
-            const token = localStorage.getItem('access_token');
-
-            if (!isAuthenticated) {
-                alert('로그인 된 사용자만 사용 가능합니다.');
-                return;
-            }
-
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-
-            fetch('http://3.39.123.7/todo/api/posts/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ title, content }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Successfully created post:', data);
-                fetchPosts(); 
-                clearFields();
-            })
-            .catch(error => console.error('Error creating post:', error));
-        }
-        
-        function deletePost(postId) {
-            const token = localStorage.getItem('access_token');
-
-            if (!isAuthenticated) {
-                alert('로그인 된 사용자만 사용 가능합니다.');
-                return;
-            }
+            data.forEach(post => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('col');
+                listItem.classList.add('mb-4');
+                listItem.classList.add('licard');
             
-            if (!isAuthenticated) {
-                alert('로그인 된 사용자만 사용 가능합니다.');
-                return;
-            }
+                // 글자수 제한을 200자로 변경
+                const truncatedContent = post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content;
+            
+                listItem.innerHTML = `
+                    <div class="h-200">
+                        <div class="card-body">
+                            <h5 class="card-title">${post.title}</h5>
+                            <p class="card-text">${truncatedContent}</p>
+                            <small class="text-muted">Created at: ${new Date(post.created_at).toLocaleString()}</small>
+                            <button type="button" onclick="deletePost(${post.id})" class="btn btn-sm btn-danger delete-btn mt-2">Delete</button>
+                        </div>
+                    </div>
+                `;
+            
+                postList.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error fetching posts:', error));
+}
 
-            fetch(`http://3.39.123.7/todo/api/posts/${postId}/`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Successfully deleted post:', postId);
-                    fetchPosts(); 
-                } else {
-                    console.error('Error deleting post:', response.statusText);
-                }
-            })
-            .catch(error => console.error('Error deleting post:', error));
+function clearFields() {
+    document.getElementById('title').value = '';
+    document.getElementById('content').value = '';
+}
+
+function createPost() {
+    var isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+    const token = localStorage.getItem('access_token');
+
+    if (!isAuthenticated) {
+        alert('로그인 된 사용자만 사용 가능합니다.');
+        return;
+    }
+
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+
+    fetch('http://3.39.123.7/todo/api/posts/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ title, content }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Successfully created post:', data);
+        fetchPosts(); 
+        clearFields();
+    })
+    .catch(error => console.error('Error creating post:', error));
+}
+
+function deletePost(postId) {
+    const token = localStorage.getItem('access_token');
+    var isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+
+    if (!isAuthenticated) {
+        alert('로그인 된 사용자만 사용 가능합니다.');
+        return;
+    }
+    
+    fetch(`http://3.39.123.7/todo/api/posts/${postId}/`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Successfully deleted post:', postId);
+            fetchPosts(); 
+        } else {
+            console.error('Error deleting post:', response.statusText);
         }
-    </script>
-</body>
-</html>
+    })
+    .catch(error => console.error('Error deleting post:', error));
+}
+</script>
 {% endblock %}
-
