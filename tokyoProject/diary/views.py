@@ -20,8 +20,6 @@ def post_new(request):
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.user != post.author:
-        return HttpResponse("Unauthorized", status=401)
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
@@ -34,11 +32,8 @@ def post_edit(request, pk):
 @login_required
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.user != post.author:
-        return HttpResponse("Unauthorized", status=401)
-    if request.method == 'POST':
-        post.delete()
-        return redirect('diary:post_list')
+    post.delete()
+    return redirect('diary:post_list')
     
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
