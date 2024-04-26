@@ -1,3 +1,7 @@
+#diary-nav {
+    color:black;
+}
+
 .detail-container {
     width: 80%;
     margin: 20px auto; 
@@ -17,4 +21,9 @@
 .action-buttons {
     text-align: right; 
     margin-top: 20px;
+}
+
+.detail-content {
+    min-height: 300px;
+    border: 2px dashed blue; 
 }

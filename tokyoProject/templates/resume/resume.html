@@ -19,31 +19,36 @@
                 <img src="{{ resume.photo.url }}" alt="Your Photo" class="img-fluid rounded-circle" style="max-width: 150px; height: auto;">
             </div>
             <div class="col-md-9">
-                <!-- Update Button -->
-                <button id="updateButton">이력서 수정</button>
+                <div id = "buttonDiv">
+                    <button id="updateButton">이력서 수정</button>
+                </div>
                 <div class="item" id="comment">
-                    <p>{{ resume.comment | safe }}</p>
+                    <h3>{{ resume.comment | safe }}</h3>
                 </div>
                 <div class="item name_role">
                     <h3 id="name">이름 : {{ resume.name | safe }}</h3>
-                    <p id="role">지원분야: {{ resume.role | safe }}</p>
+                    <div id = "role_salary">
+                        <p id="role">지원분야: {{ resume.role | safe }}</p>
+                        <p>희망연봉: {{ resume.salary | safe }}</p>
+                    </div>
                 </div>
                 
                 <div class="item" id="career">
+                    <h3> 이력사항 </h3>
                     <p>{{ resume.career | safe }}</p>
                 </div>
 
-                <div class="item" id="salary">
-                    <p>연봉: {{ resume.salary | safe }}</p>
-                </div>
                 <div class="item" id="intro">
-                    <p>자기 소개: {{ resume.intro | safe }}</p>
+                    <h3> 자기소개 </h3>
+                    <p>{{ resume.intro | safe }}</p>
                 </div>
                 <div class="item" id="information">
-                    <p>개인 정보: {{ resume.information | safe }}</p>
+                    <h3> 개인 정보 </h3>
+                    <p>{{ resume.information | safe }}</p>
                 </div>
                 <div class="item" id="certificate">
-                    <p>보유 자격: {{ resume.certificate | safe }}</p>
+                    <h3> 보유 자격 </h3>
+                    <p>{{ resume.certificate | safe }}</p>
                 </div>
             </div>
         </div>

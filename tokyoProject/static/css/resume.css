@@ -1,3 +1,7 @@
+#resume-nav {
+    color : black;
+}
+
 .resume-section {
     margin-top: 50px;
     text-align: left;
@@ -20,9 +24,30 @@ h2, h3, p {
 }
 
 #name {
+    margin-left : 10px;
     flex-basis: 30%;
 }
 
 #role {
     flex-basis: 50%;
+}
+
+#role_salary {
+    margin-right: 50px;
+}
+
+#updateButton {
+    background-color: #0B65C2;  
+    border: 1px dashed #0B65C2; 
+    padding: 0.75em 1.5em;   
+    margin-right: 40px;      
+}
+
+#updateButton:hover {
+    background-color: darkblue; 
+}
+
+#buttonDiv {
+    text-align: right;
+    margin-bottom: 40px;
 }
