@@ -30,20 +30,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'resume:resume_page' %}">정식 이력서</a>
+                    <a class="nav-link resume-nav" href="{% url 'resume:resume_page' %}">정식 이력서</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'toDo:toDo' %}">To Do</a>
+                    <a class="nav-link todo-nav" href="{% url 'toDo:toDo' %}">To Do</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'diary:post_list' %}">Diary</a>
+                    <a class="nav-link diary-nav" href="{% url 'diary:post_list' %}">Diary</a>
                 </li>
             </ul>
         </div>
 
         <!-- 로그인/로그아웃 링크 -->
         <div class="ml-auto" id="authContainer">
-            <!-- 동적 로그인/로그아웃 버튼이 여기에 위치하게 됩니다 -->
+            <!-- 동적 로그인/로그아웃 버튼 위치 -->
         </div>
     </div>
 </nav>
@@ -82,8 +82,8 @@ function updateAuthUI() {
 
 function logout() {
     localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');  // If using refresh tokens
-    window.location.href = "{% url 'login' %}";  // Redirect to login or home page after logout
+    localStorage.removeItem('refresh_token');  
+    window.location.href = "{% url 'login' %}"; 
 }
 </script>
 </body>
