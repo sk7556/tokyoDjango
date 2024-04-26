@@ -1,3 +1,35 @@
+
+
+#resume_photo {
+    margin-top : 40px;
+    max-width: 160px; 
+    height: auto;
+}
+
+#updateButton {
+    color:#0B65C2;
+    border: 2px solid #0B65C2;
+    border-radius: 15px;
+    padding: 0.75em 1.5em;
+    margin-bottom: 20px;
+    background-color: white;
+    transition: background-color 0.3s ease, border-radius 0.3s ease; 
+}
+
+
+#updateButton:hover {
+    color:white;
+    background-color: #0B65C2;
+    border-radius: 2px;
+}
+
+#buttonDiv {
+    text-align: right;
+    margin-top: 40px;
+    margin-left:15px;
+    float:left;
+}
+
 #resume-nav {
     color : black;
 }
@@ -19,35 +51,18 @@ h2, h3, p {
 
 .name_role {
     display: flex;
-    justify-content: space-between; 
+    justify-content: center; 
     align-items: center; 
 }
 
 #name {
-    margin-left : 10px;
+    margin-right : 50px;
     flex-basis: 30%;
 }
 
-#role {
-    flex-basis: 50%;
-}
-
 #role_salary {
-    margin-right: 50px;
+    flex-basis: 50%;
+    margin-left: 50px;
 }
 
-#updateButton {
-    background-color: #0B65C2;  
-    border: 1px dashed #0B65C2; 
-    padding: 0.75em 1.5em;   
-    margin-right: 40px;      
-}
 
-#updateButton:hover {
-    background-color: darkblue; 
-}
-
-#buttonDiv {
-    text-align: right;
-    margin-bottom: 40px;
-}

@@ -15,13 +15,13 @@
 <section class="resume-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <img src="{{ resume.photo.url }}" alt="Your Photo" class="img-fluid rounded-circle" style="max-width: 150px; height: auto;">
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-3 left-div">
+                <img src="{{ resume.photo.url }}" alt="Your Photo" class="img-fluid rounded-circle" id="resume_photo">
                 <div id = "buttonDiv">
                     <button id="updateButton">이력서 수정</button>
                 </div>
+            </div>
+            <div class="col-md-9">
                 <div class="item" id="comment">
                     <h3>{{ resume.comment | safe }}</h3>
                 </div>
