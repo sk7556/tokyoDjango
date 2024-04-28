@@ -9,23 +9,27 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="my-4">To Do </h1>
-
-    <form id="postForm">
-        <div class="mb-3" >
-            <label for="title" class="form-label cols-3">Title:</label>
-            <input type="text" id="title" name="title" class="form-control" required>
+    <h1 class="my-4 text-center">To Do</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <form id="postForm">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" id="title" name="title" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content:</label>
+                    <textarea id="content" name="content" class="form-control" required rows="10"></textarea>
+                </div>
+                <button type="button" onclick="createPost()" class="btn btn-success">Create Post</button>
+            </form>
         </div>
-
-        <div class="mb-3">
-            <label for="content" class="form-label cols-3">Content:</label>
-            <textarea id="content" name="content" class="form-control" required></textarea>
+        <div class="col-md-9 right-content">
+            <ul id="postList" class="row">
+                <!-- Posts will be inserted dynamically here -->
+            </ul>
         </div>
-
-        <button type="button" onclick="createPost()" class="btn btn-success">Create Post</button>
-    </form>
-
-    <ul id="postList" class="row row-cols-1 row-cols-md-3 g-4"></ul>
+    </div>
 </div>
 
 <!-- jQuery, Bootstrap.js -->
@@ -47,28 +51,21 @@ function fetchPosts() {
         .then(data => {
             const postList = document.getElementById('postList');
             postList.innerHTML = ''; 
-
             data.forEach(post => {
                 const listItem = document.createElement('li');
-                listItem.classList.add('col');
-                listItem.classList.add('mb-4');
-                listItem.classList.add('licard');
-            
-                // 글자수 제한을 200자로 변경
-                const truncatedContent = post.content.length > 200 ? convertLineBreaksToHTML(post.content.substring(0, 200)) + '...' : convertLineBreaksToHTML(post.content);
-
-            
+                listItem.classList.add('col-12', 'licard');
+                const truncatedContent = post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content;
+                const formattedContent = convertLineBreaksToHTML(truncatedContent); // 줄바꿈 변환
                 listItem.innerHTML = `
-                    <div class="h-200">
+                    <div class="card card-custom">
                         <div class="card-body">
                             <h5 class="card-title">${post.title}</h5>
-                            <p class="card-text">${truncatedContent}</p>
+                            <p class="card-text">${formattedContent}</p> <!-- 변환된 줄바꿈 적용 -->
                             <small class="text-muted">Created at: ${new Date(post.created_at).toLocaleString()}</small>
                             <button type="button" onclick="deletePost(${post.id})" class="btn btn-sm btn-danger delete-btn mt-2">Delete</button>
                         </div>
                     </div>
                 `;
-            
                 postList.appendChild(listItem);
             });
         })
