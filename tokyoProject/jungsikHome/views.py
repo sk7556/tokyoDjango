@@ -11,17 +11,12 @@ def get_tokens_for_user(user):
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }
-
-class IndexAPIView(APIView):
-    def get(self, request):
-        return Response({"message": "Hello, this is the index API."})
-
 class LoginPageAPIView(APIView):
     def get(self, request):
         return Response({"message": "This is the login page API."})
 
 def index(request):
-    return render(request, "resume/resume.html")
+    return render(request, "jungsikHome/index.html")
 
 def login_view(request):
     if request.method == 'POST':

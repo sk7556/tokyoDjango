@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 
 from django.urls import path, include, reverse_lazy
-from .views import IndexAPIView, LoginPageAPIView, index
+from .views import LoginPageAPIView, index
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -12,7 +12,6 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('api/index/', IndexAPIView.as_view(), name='api_index'),
     path('api/login/', LoginPageAPIView.as_view(), name='api_login_page'),
     path('', index, name='index'), 
     path('login/', auth_views.LoginView.as_view(template_name='jungsikHome/login.html'), name='login'),

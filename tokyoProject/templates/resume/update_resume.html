@@ -43,7 +43,9 @@
         {% csrf_token %}
         {{ form.as_p }}
         <div class="form-group">
-            <input type="file" name="photo" id="photo">
+            <div>
+                <input type="file" name="photo" id="photo">
+            </div>
             <label for="name">이름 :</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}">
             <label for="comment">좌우명 :</label>
@@ -75,7 +77,7 @@
         var formData = new FormData(form);
         var token = localStorage.getItem('access_token'); // JWT 토큰을 로컬 스토리지에서 가져옵니다.
 
-        fetch(`http://3.39.123.7/resume/api/resumes/1/`, {
+        fetch(`http://3.39.123.7/resume/api/resumes/1`, {
             method: 'PUT',
             headers: {
                 'Authorization': 'Bearer ' + token, // JWT 토큰을 사용하여 인증

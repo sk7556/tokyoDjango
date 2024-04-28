@@ -1,1 +1,40 @@
-첫 페이지가 되어야하는 곳 
+{% extends "base_generic.html" %}
+{% block title %} 페이지 소개 {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div>
+        <p>안녕하세요</p>
+        <div>
+            이 사이트는 Git-AWS의 CI/CD 배포 연습 및 간단한 Django프로젝트를 테스트하기 위해 만들어졌습니다
+        </div>
+        <br>
+        <div>
+            <ul>
+                <li>이력서</li>
+                <li>오늘 해야할 일</li>
+                <li>게시판 형 일기장</li>
+            </ul>
+        </div>
+        <p>
+            으로 이루어져있고, 데이터의 입력, 수정, 삭제 권한은 로그인 유저에게만 있습니다 
+        </p>
+        <p> 작업 환경 </p>
+        <ul>
+            <li>활용된 언어 : Python / HTML / JavaScript </li>
+            <li>활용된 프레임워크 : Django / BootStrap </li>
+            <li>클라우드 및 플랫폼 서비스 : AWS LightSail </li>
+            <li>버전관리 시스템 : GitHub </li>
+            <li>웹 서버/서비스 운영: Nginx, Gunicorn </li>
+        </ul>
+            <br>
+        <p> 개발자 정보 </p>
+        <ul>
+            <li>작성자 : 남정식 </li>
+            <li>Git : https://github.com/sk7556/tokyoDjango </li>
+            <li>Mail : kuuko7556@gmail.com </li>
+            <li>H.P : 010 - 9913 -7552 </li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
