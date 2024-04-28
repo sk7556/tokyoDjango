@@ -19,8 +19,9 @@
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
     <div class="container">
         <!-- 네비게이션 로고 -->
-        <img src="{% static 'image/gura_icon.gif' %}" alt="로고" height="50" id="logo">
-
+        <a href="{% url 'index' %}">
+            <img src="{% static 'image/gura_icon.gif' %}" alt="로고" height="50" id="logo">
+        </a>
         <!-- 토글 버튼 -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
