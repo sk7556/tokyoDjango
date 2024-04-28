@@ -87,7 +87,7 @@ function createPost() {
     const title = document.getElementById('title').value;
     const content = document.getElementById('content').value;
 
-    fetch('http://3.39.123.7/todo/api/posts', {
+    fetch(`http://3.39.123.7/todo/api/posts/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ function deletePost(postId) {
         return;
     }
     
-    fetch(`http://3.39.123.7/todo/api/posts/${postId}`, {
+    fetch(`http://3.39.123.7/todo/api/posts/${postId}/`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`

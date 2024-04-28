@@ -29,7 +29,7 @@ function login() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     
-    fetch('http://3.39.123.7/api/token', {
+    fetch(`http://3.39.123.7/api/token/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
