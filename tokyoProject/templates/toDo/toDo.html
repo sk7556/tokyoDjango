@@ -37,6 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchPosts();
 });
 
+function convertLineBreaksToHTML(content) {
+    return content.replace(/\n/g, '<br>');
+}
+
 function fetchPosts() {
     fetch('http://3.39.123.7/todo/api/posts')
         .then(response => response.json())
@@ -51,7 +55,8 @@ function fetchPosts() {
                 listItem.classList.add('licard');
             
                 // 글자수 제한을 200자로 변경
-                const truncatedContent = post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content;
+                const truncatedContent = post.content.length > 200 ? convertLineBreaksToHTML(post.content.substring(0, 200)) + '...' : convertLineBreaksToHTML(post.content);
+
             
                 listItem.innerHTML = `
                     <div class="h-200">

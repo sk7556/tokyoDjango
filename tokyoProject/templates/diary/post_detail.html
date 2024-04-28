@@ -13,7 +13,7 @@
         <h2>{{ post.title }}</h2>
     </div>
     <div class="detail-content">
-        <p>{{ post.content }}</p>
+        <p>{{ post.content |linebreaks }}</p>
     </div>
     <div class="action-buttons">
         <a href="{% url 'diary:post_list' %}" class="btn btn-info">글 목록</a>
