@@ -21,12 +21,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 # 허용하는 url 리스트 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:5500',
-    'http://localhost:8000',
-    'http://127.0.0.1:5500',
-    'http://127.0.0.1:8000',
-    'http://3.39.123.7',
-    'http://jungsik.net',
+    'http://localhost:5500/',
+    'http://localhost:8000/',
+    'http://127.0.0.1:5500/',
+    'http://127.0.0.1:8000/',
+    'http://3.39.123.7/',
+    'http://jungsik.net/',
 )
 
 # Application definition
