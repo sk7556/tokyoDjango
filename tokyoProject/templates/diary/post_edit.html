@@ -1,5 +1,5 @@
 {% extends 'base_generic.html' %}
-
+{% block title %}{{ post.title }} - 글 수정하기 {% endblock %}
 {% block styles %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/post_edit.css' %}">
