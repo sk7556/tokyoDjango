@@ -75,11 +75,14 @@ function clearFields() {
     document.getElementById('content').value = '';
 }
 
+function isAuthenticated() {
+    return localStorage.getItem('access_token') !== null;
+}
+
 function createPost() {
-    var isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
     const token = localStorage.getItem('access_token');
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated()) {
         alert('로그인 된 사용자만 사용 가능합니다.');
         return;
     }
@@ -106,9 +109,8 @@ function createPost() {
 
 function deletePost(postId) {
     const token = localStorage.getItem('access_token');
-    var isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated()) {
         alert('로그인 된 사용자만 사용 가능합니다.');
         return;
     }

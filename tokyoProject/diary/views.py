@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostForm
 
-@login_required
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -17,19 +16,17 @@ def post_new(request):
         form = PostForm()
     return render(request, 'diary/post_edit.html', {'form': form})
 
-@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect('diary:post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'diary/post_edit.html', {'form': form, 'post': post})
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        post.title = title
+        post.content = content
+        post.save()
+        return redirect('diary:post_detail', pk=post.pk)
+    return render(request, 'diary/post_edit.html', {'post': post})
 
-@login_required
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
