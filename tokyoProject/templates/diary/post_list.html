@@ -8,11 +8,9 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="text-right mb-3">
-    {% if user.is_authenticated %}
+    <!-- 글 쓰기 버튼을 항상 표시 -->
     <a href="{% url 'diary:post_new' %}" class="btn btn-primary">글 쓰기</a>
-    {% endif %}
 </div>
 
 <table>
@@ -31,16 +29,34 @@
             <td><a href="{% url 'diary:post_detail' pk=post.pk %}">{{ post.title }}</a></td>
             <td>{{ post.created_at }}</td>
             <td>
-                {% if user.is_authenticated %}
-                <form action="{% url 'diary:post_delete' pk=post.pk %}" method="post">
+                <form action="{% url 'diary:post_delete' pk=post.pk %}" method="post" class="delete-form" style="display: none;">
                     {% csrf_token %}
                     <input type="submit" value="삭제" class="btn btn-danger">
                 </form>
-                {% endif %}
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    updateUIBasedOnAuth();
+});
+
+function isAuthenticated() {
+    return localStorage.getItem('access_token') !== null;
+}
+
+function updateUIBasedOnAuth() {
+    const authenticated = isAuthenticated();
+    if (authenticated) {
+        const deleteForms = document.querySelectorAll('.delete-form');
+        deleteForms.forEach(form => {
+            form.style.display = 'inline';
+        });
+    }
+}
+</script>
 
 {% endblock %}
