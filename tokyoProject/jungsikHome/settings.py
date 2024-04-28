@@ -19,7 +19,7 @@ CORS_ALLOW_CREDENTIALS = True
 # 모든 출처 허용
 # CORS_ORIGIN_ALLOW_ALL = True # CORS 설정관련 해결 필요
 
-# # 허용하는 url 리스트 
+# 허용하는 url 리스트 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:5500',
     'http://localhost:8000',
@@ -70,8 +70,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
-    "REFRESH_TOKEN_LIFETIME": timedelta(hours=2),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=24),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=24),
 }
 
 # 추가된 AWS Url이 있다면 여기에 추가 
