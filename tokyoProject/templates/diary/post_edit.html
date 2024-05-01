@@ -6,7 +6,11 @@
 {% endblock %}
 
 {% block content %}
-  <h2>글 수정하기</h2>
+  {% if post %}
+    {{ post.title }} - 글 수정하기
+  {% else %}
+    새 글 작성하기
+  {% endblock %}
   <form method="POST">
     {% csrf_token %}
     <input type="text" name="title" placeholder="제목을 입력하세요" value="{{ post.title }}">

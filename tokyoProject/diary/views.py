@@ -8,9 +8,7 @@ def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+            post = form.save()
             return redirect('diary:post_detail', pk=post.pk)
     else:
         form = PostForm()

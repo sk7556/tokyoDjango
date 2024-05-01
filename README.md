@@ -8,7 +8,7 @@ AWS 배포를 목표로 개인홈페이지를 만들어 기능추가를 하는 d
 이를 AWS Lightsail에 올려 도메인과 함께 서비스함으로서 
 발생할 수 있는 이슈를 체크하고 기술을 습득하기 위해 프로젝트를 진행했습니다
 
-2. 프로젝트 상세
+2. 사용 기술
 
 활용된 언어 : Python / HTML / JavaScript
 활용된 프레임워크 : Django / BootStrap
@@ -19,8 +19,23 @@ AWS 배포를 목표로 개인홈페이지를 만들어 기능추가를 하는 d
 
 3. 프로젝트 구성
 - 이력서 페이지 
-- toDO 페이지
+이력서 (resume)
+--> Django의 기능을 통해 DB에 입력된 데이터를 받아 노출 
+
+이력서 업데이트 (resume/update)
+--> JS, DRF API를 통해 이력사항을 입력받아 DB에 업로드
+--> 로그인 유저만 업로드 가능 
+
+
+- toDo 페이지
+toDo ( toDo )
+--> DRF API를 통해 CRUD를 수행하여 메모를 작성하는 페이지 
+--> 로그인 유저
+--> ModelViewSet을 활용 
+
 - Diary 게시판 페이지 
+Diary ( diary ) 
+--> 
 
 4. 백엔드 구조 설계 
 GitHub Action - AWS Lightsail - 
