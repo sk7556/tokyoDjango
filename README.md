@@ -72,10 +72,15 @@ AWS 배포를 목표로 개인홈페이지를 만들어 기능추가를 하는 D
 * Create, Update, Delete 의 경우 **로그인 유저**만 사용하도록 구성
 
 ## 4. 백엔드 구조 설계 
-GitHub Action - [AWS Lightsail - Gunicorn - Nginx - Django - DB] - Browser
+![ref](https://github.com/sk7556/tokyoDjango/assets/109896609/75d05739-a6a1-4f29-b24c-60d5e62ec769)
 
-Gunicorn - wsgi
-nginx - web server 
+* Nginx
+  
+   정적 컨텐츠를 처리하고 사용자의 요청을 Gunicorn을 통해 웹 애플리케이션 서버로 전달
+
+* Gunicorn
+
+  WSGI 를 지원하는 Django와 상호작용하여 동적인 내용을 생성
 
 데이터 플로우
 1. 유저 request 를 Nginx에 도달
