@@ -2,19 +2,36 @@
 AWS 배포를 목표로 개인홈페이지를 만들어 기능추가를 하는 Django프로젝트입니다 
 
 [목차]
+1. 프로젝트 목표
+2. 작업환경 구성
+3. 프로젝트 구성
+4. 백엔드 구조 설계
+5. 작업 주요 이슈
+   
 
 1. 프로젝트 목표  
-간단 CRUD가 가능한 Django 프로젝트를 구성하고  /t
+간단 CRUD가 가능한 Django 프로젝트를 구성하고
+
 이를 AWS Lightsail에 올려 도메인과 함께 서비스함으로서 
 발생할 수 있는 이슈를 체크하고 기술을 습득하기 위해 프로젝트를 진행했습니다
 
-2. 사용 기술
+3. 작업 환경 구성
 
+- 사용된 기술
 활용된 언어 : Python / HTML / JavaScript
 활용된 프레임워크 : Django / BootStrap
 클라우드 및 플랫폼 서비스 : AWS LightSail
 버전관리 시스템 : GitHub
-웹 서버/서비스 운영: Nginx, Gunicorn
+웹 서버/서비스 운영: Nginx, Gunicorn  
+
+- 작업 환경 설정
+VSCODE 환경 설정
+AWS에 연결된 ssh를 VSCODE에 연결하여 활용할 수 있도록 세팅 
+
+GitHub Repository 설정 
+main - release 브랜치로 나누어 업데이트에 활용할 브랜치를 구분 
+
+
 
 
 3. 프로젝트 구성
@@ -46,13 +63,6 @@ nginx - web server
 
 
 5. 작업 주요 이슈 (in Code) 
-- 작업 환경 설정
-VSCODE 환경 설정
-AWS에 연결된 ssh를 VSCODE에 연결하여 활용할 수 있도록 세팅 
-
-GitHub Repository 설정 
-main - release 브랜치로 나누어 업데이트에 활용할 브랜치를 구분 
-
 
 - 백엔드
 CORS 세팅
