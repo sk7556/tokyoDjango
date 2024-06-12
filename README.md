@@ -1,7 +1,7 @@
 # tokyoDjango
 AWS 배포를 목표로 개인홈페이지를 만들어 기능추가를 하는 Django프로젝트입니다 
 
-배포된 도메인 : http://jungsik.net
+배포된 도메인 : http://jungsik.net ( 배포만료 )
 
 [목차]
 1. 프로젝트 목표
